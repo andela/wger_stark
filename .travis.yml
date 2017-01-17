@@ -67,6 +67,7 @@ script:
   - coverage report
   #add slack notifications
   notifications:
- - slack: andela:W4GKonsT2n6HLv7Uhrp3Zwu9
+  slack: 
+    - andela:W4GKonsT2n6HLv7Uhrp3Zwu9
   
   
