@@ -61,7 +61,6 @@ class EditAdminNoteTestCase(WorkoutManagerEditTestCase):
     '''
     Tests editing an admin note
     '''
-
     object_class = AdminUserNote
     url = 'gym:admin_note:edit'
     pk = 1
@@ -81,7 +80,6 @@ class DeleteAdminNoteTestCase(WorkoutManagerDeleteTestCase):
     '''
     Tests deleting an admin note
     '''
-
     pk = 2
     object_class = AdminUserNote
     url = 'gym:admin_note:delete'
@@ -94,5 +92,6 @@ class DeleteAdminNoteTestCase(WorkoutManagerDeleteTestCase):
                  'trainer4',
                  'general_manager1',
                  'general_manager2')
+
 
 delete_testcase_add_methods(DeleteAdminNoteTestCase)
