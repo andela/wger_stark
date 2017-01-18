@@ -53,7 +53,8 @@ def parse_weight_csv(request, cleaned_data):
     # Process the CSV items first
     for row in parsed_csv:
         try:
-            parsed_date = datetime.datetime.strptime(row[0], cleaned_data['date_format'])
+            parsed_date = datetime.datetime.strptime(
+                row[0], cleaned_data['date_format'])
             parsed_weight = decimal.Decimal(row[1].replace(',', '.'))
             duplicate_date_in_db = WeightEntry.objects.filter(date=parsed_date,
                                                               user=request.user).exists()
@@ -190,7 +191,8 @@ def process_log_entries(logs):
         if (entry.date, entry.reps, entry.weight) in entry_list[entry.reps]['seen']:
             continue
 
-        entry_list[entry.reps]['seen'].append((entry.date, entry.reps, entry.weight))
+        entry_list[entry.reps]['seen'].append(
+            (entry.date, entry.reps, entry.weight))
         entry_list[entry.reps]['list'].append({'date': entry.date,
                                                'weight': entry.weight,
                                                'reps': entry.reps})

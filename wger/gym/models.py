@@ -182,7 +182,8 @@ class GymAdminConfig(AbstractGymUserConfigModel, m.Model):
         '''
 
     overview_inactive = m.BooleanField(verbose_name=_('Overview of inactive members'),
-                                       help_text=_('Receive email overviews of inactive members'),
+                                       help_text=_(
+                                           'Receive email overviews of inactive members'),
                                        default=True)
     '''
     Reminder of inactive members
