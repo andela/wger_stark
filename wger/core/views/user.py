@@ -338,11 +338,14 @@ class UserDeactivateView(LoginRequiredMixin,
         edit_user.save()
         messages.success(self.request, _('The user was successfully deactivated'))
 
-        # if we are coming from the user list view don't redirect
-        if not 'user/list' in self.request.META.get('HTTP_REFERER'):
-            return reverse('core:user:overview', kwargs=({'pk': pk}))
-        else:
+        # if we are coming from the user list or gym list view don't redirect
+        ref = self.request.META.get('HTTP_REFERER')
+        if ref and 'user/list' in ref:
             return reverse('core:user:list')
+        elif ref and 'member' in ref:
+            return reverse('gym:gym:user-list' , kwargs=({'pk': self.request.user.userprofile.gym.pk}))
+        return reverse('core:user:overview', kwargs=({'pk': pk}))
+
 
 
 class UserActivateView(LoginRequiredMixin,
@@ -375,11 +378,15 @@ class UserActivateView(LoginRequiredMixin,
         edit_user.is_active = True
         edit_user.save()
         messages.success(self.request, _('The user was successfully activated'))
-        # if we are coming from the user list view don't redirect
-        if not 'user/list' in self.request.META.get('HTTP_REFERER'):
-            return reverse('core:user:overview', kwargs=({'pk': pk}))
-        else:
+
+        # if we are coming from the user list or gym list view don't redirect
+        print(self.request.COOKIES)
+        ref = self.request.META.get('HTTP_REFERER')
+        if ref and 'user/list' in ref:
             return reverse('core:user:list')
+        elif ref and 'member' in ref:
+            return reverse('gym:gym:user-list' , kwargs=({'pk': self.request.user.userprofile.gym.pk}))
+        return reverse('core:user:overview', kwargs=({'pk': pk}))
 
 
 class UserEditView(WgerFormMixin,
