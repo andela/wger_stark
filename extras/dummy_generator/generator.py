@@ -362,7 +362,7 @@ if hasattr(args, 'number_logs'):
                                                  workout=workout,
                                                  reps=reps,
                                                  weight=50 - reps + \
-                                                     random.randint(1, 10),
+                                                 random.randint(1, 10),
                                                  date=date)
                                 weight_log.append(log)
 
@@ -442,7 +442,7 @@ if hasattr(args, 'number_weight'):
             if creation_date not in existing_entries:
                 entry = WeightEntry(user=user,
                                     weight=args.base_weight + 0.5 * \
-                                        i + random.randint(1, 3),
+                                    i + random.randint(1, 3),
                                     date=creation_date)
                 new_entries.append(entry)
 

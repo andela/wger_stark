@@ -378,7 +378,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
             cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
         self.client.get(reverse('manager:workout:calendar',
-                        kwargs={'year': 2012, 'month': 10}))
+                                kwargs={'year': 2012, 'month': 10}))
         self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_calendar_day(self):
@@ -433,7 +433,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         log_hash_day = hash((1, 2012, 10, 1))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar',
-                        kwargs={'year': 2012, 'month': 10}))
+                                kwargs={'year': 2012, 'month': 10}))
         self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
                                                                         'year': 2012,
                                                                         'month': 10,
@@ -456,7 +456,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         log_hash_day = hash((1, 2012, 10, 1))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar',
-                        kwargs={'year': 2012, 'month': 10}))
+                                kwargs={'year': 2012, 'month': 10}))
         self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
                                                                         'year': 2012,
                                                                         'month': 10,
@@ -478,7 +478,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         log_hash_day = hash((1, 2012, 10, 1))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar',
-                        kwargs={'year': 2012, 'month': 10}))
+                                kwargs={'year': 2012, 'month': 10}))
         self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
                                                                         'year': 2012,
                                                                         'month': 10,
@@ -500,7 +500,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         log_hash_day = hash((1, 2012, 10, 1))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar',
-                        kwargs={'year': 2012, 'month': 10}))
+                                kwargs={'year': 2012, 'month': 10}))
         self.client.get(reverse('manager:workout:calendar-day', kwargs={'username': 'admin',
                                                                         'year': 2012,
                                                                         'month': 10,

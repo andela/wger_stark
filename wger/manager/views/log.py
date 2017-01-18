@@ -150,7 +150,7 @@ def add(request, pk):
         for form_id in form_to_exercise:
             if post_copy.get('form-%s-weight' % form_id) or post_copy.get('form-%s-reps' % form_id):
                 post_copy['form-%s-exercise' %
-                    form_id] = form_to_exercise[form_id].id
+                          form_id] = form_to_exercise[form_id].id
 
         # Pass the new data to the forms
         formset = WorkoutLogFormSet(data=post_copy)

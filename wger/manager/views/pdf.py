@@ -159,7 +159,7 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     # Iterate through the Workout and render the training days
     for day in workout.canonical_representation['day_list']:
         elements.append(render_workout_day(day, images=images,
-                        comments=comments, only_table=True))
+                                           comments=comments, only_table=True))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info

@@ -175,7 +175,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar',
-                        kwargs={'year': 2012, 'month': 10}))
+                                kwargs={'year': 2012, 'month': 10}))
 
         session = WorkoutSession.objects.get(pk=1)
         session.notes = 'Lorem ipsum'
@@ -191,7 +191,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar',
-                        kwargs={'year': 2012, 'month': 10}))
+                                kwargs={'year': 2012, 'month': 10}))
 
         # Session is from 2014
         session = WorkoutSession.objects.get(pk=2)
@@ -207,7 +207,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar',
-                        kwargs={'year': 2012, 'month': 10}))
+                                kwargs={'year': 2012, 'month': 10}))
 
         session = WorkoutSession.objects.get(pk=1)
         session.delete()
@@ -222,7 +222,7 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar',
-                        kwargs={'year': 2012, 'month': 10}))
+                                kwargs={'year': 2012, 'month': 10}))
 
         session = WorkoutSession.objects.get(pk=2)
         session.delete()
