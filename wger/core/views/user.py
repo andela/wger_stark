@@ -337,7 +337,12 @@ class UserDeactivateView(LoginRequiredMixin,
         edit_user.is_active = False
         edit_user.save()
         messages.success(self.request, _('The user was successfully deactivated'))
-        return reverse('core:user:overview', kwargs=({'pk': pk}))
+
+        # if we are coming from the user list view don't redirect
+        if not 'user/list' in self.request.META.get('HTTP_REFERER'):
+            return reverse('core:user:overview', kwargs=({'pk': pk}))
+        else:
+            return reverse('core:user:list')
 
 
 class UserActivateView(LoginRequiredMixin,
@@ -370,7 +375,11 @@ class UserActivateView(LoginRequiredMixin,
         edit_user.is_active = True
         edit_user.save()
         messages.success(self.request, _('The user was successfully activated'))
-        return reverse('core:user:overview', kwargs=({'pk': pk}))
+        # if we are coming from the user list view don't redirect
+        if not 'user/list' in self.request.META.get('HTTP_REFERER'):
+            return reverse('core:user:overview', kwargs=({'pk': pk}))
+        else:
+            return reverse('core:user:list')
 
 
 class UserEditView(WgerFormMixin,
