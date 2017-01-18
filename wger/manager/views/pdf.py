@@ -36,7 +36,6 @@ from reportlab.platypus import (
 )
 
 
-
 logger = logging.getLogger(__name__)
 
 

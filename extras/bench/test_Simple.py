@@ -5,6 +5,7 @@ Simple FunkLoad test
 import unittest
 from funkload.FunkLoadTestCase import FunkLoadTestCase
 
+
 class Simple(FunkLoadTestCase):
     '''
     This test uses the configuration file Simple.conf.

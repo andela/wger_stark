@@ -236,7 +236,6 @@ patterns_step = [
 ]
 
 
-
 urlpatterns = [
    url(r'^', include(patterns_workout, namespace="workout")),
    url(r'^log/', include(patterns_log, namespace="log")),
