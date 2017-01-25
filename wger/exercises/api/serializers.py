@@ -24,6 +24,14 @@ from wger.exercises.models import (
     ExerciseComment
 )
 
+class ExerciseInfoSerializer(serializers.ModelSerializer):
+    '''
+    Exercise serializer
+    '''
+    class Meta:
+        model = Exercise
+        depth = 1
+
 
 class ExerciseSerializer(serializers.ModelSerializer):
     '''
