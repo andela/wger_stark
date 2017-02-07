@@ -343,9 +343,9 @@ class UserDeactivateView(LoginRequiredMixin,
         if ref and 'user/list' in ref:
             return reverse('core:user:list')
         elif ref and 'member' in ref:
-            return reverse('gym:gym:user-list' , kwargs=({'pk': self.request.user.userprofile.gym.pk}))
+            return reverse('gym:gym:user-list',
+                           kwargs=({'pk': self.request.user.userprofile.gym.pk}))
         return reverse('core:user:overview', kwargs=({'pk': pk}))
-
 
 
 class UserActivateView(LoginRequiredMixin,
@@ -385,7 +385,8 @@ class UserActivateView(LoginRequiredMixin,
         if ref and 'user/list' in ref:
             return reverse('core:user:list')
         elif ref and 'member' in ref:
-            return reverse('gym:gym:user-list' , kwargs=({'pk': self.request.user.userprofile.gym.pk}))
+            return reverse('gym:gym:user-list',
+                           kwargs=({'pk': self.request.user.userprofile.gym.pk}))
         return reverse('core:user:overview', kwargs=({'pk': pk}))
 
 

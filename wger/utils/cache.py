@@ -29,6 +29,8 @@ def get_template_cache_name(fragment_name='', *args):
     '''
     key = u':'.join([str(arg) for arg in args])
     key_name = hashlib.md5(force_bytes(key)).hexdigest()
+    # import ipdb; ipdb.set_trace()
+
     return 'template.cache.{0}.{1}'.format(fragment_name, key_name)
 
 
@@ -68,8 +70,6 @@ class CacheKeyMapper(object):
     WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
     WORKOUT_LOG_LIST = 'workout-log-hash-{0}'
     NUTRITION_PLAN_OVERVIEW = 'nutrition-plan-overview-{0}'
-
-
 
     def get_pk(self, param):
         '''

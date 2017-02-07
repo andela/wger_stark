@@ -14,12 +14,17 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
+from django.core.urlresolvers import reverse
+from django.core.cache.utils import make_template_fragment_key
 
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
 from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.nutrition.models import NutritionPlan
+
+from wger.utils.cache import get_template_cache_name, cache_mapper
 
 
 class PlanRepresentationTestCase(WorkoutManagerTestCase):
@@ -169,3 +174,18 @@ class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
     special_endpoints = ('nutritional_values',)
     data = {'description': 'The description',
             'language': 1}
+
+
+class PlanCacheTestCase(WorkoutManagerTestCase):
+    '''
+    meal plan cache test case
+    '''
+    def test_plan_overview(self):
+        '''test the meal plan cache is correctly generated on visit
+        '''
+        self.user_login('test')
+        plan = NutritionPlan.objects.get(pk=1)
+
+        self.assertFalse(cache.get(get_template_cache_name('nutrition-plan-overview')))
+        self.client.get(reverse('nutrition:plan:overview'))
+        self.assertTrue(cache.get(get_template_cache_name('nutrition-plan-overview')))

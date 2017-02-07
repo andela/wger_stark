@@ -68,16 +68,18 @@ def overview(request):
 
     plans = NutritionPlan.objects.filter(user=request.user)
     for plan in plans:
-         # Check if total calorie value in cache
-         # If not, add to cache
-         # If it exists, load value from cache
-         cached_total = cache.get(cache_mapper.get_nutrition_plan_key(int(plan.id)))
-         if not cached_total:
-             cache.set(cache_mapper.get_nutrition_plan_key(int(plan.id)), plan.get_nutritional_values()['total']['energy'])
-             plan.cached_total = cache.get(cache_mapper.get_nutrition_plan_key(int(plan.id)))
-         else:
-             plan.cached_total = cached_total
+        # Check if total calorie value in cache
+        # If not, add to cache
+        # If it exists, load value from cache
+        cached_total = cache.get(cache_mapper.get_nutrition_plan_key(int(plan.id)))
+        if not cached_total:
+            cache.set(cache_mapper.get_nutrition_plan_key(int(plan.id)),
+                      plan.get_nutritional_values()['total']['energy'])
+            plan.cached_total = cache.get(cache_mapper.get_nutrition_plan_key(int(plan.id)))
+        else:
+            plan.cached_total = cached_total
     template_data['plans'] = plans
+    success_url = reverse_lazy('nutrition:plan:overview')
 
     return render(request, 'plan/overview.html', template_data)
 
