@@ -58,8 +58,7 @@ class AmazonUserAgentTestCase(WorkoutManagerTestCase):
         Tests generic android, from amazon app store
         '''
 
-        agent = "Mozilla/5.0 (Linux; U; Android <version>;"\
-                "<locale>; Build/<build>) AppleWebKit/"\
+        agent = "Mozilla/5.0 (Linux; U; Android <version>; <locale>; Build/<build>) AppleWebKit/"\
                 "<webkit> (KHTML, like Gecko) Version/4.0 Safari/<safari> AmazonWebAppPlatform/"\
                 "<version>"
         self.assertTrue(user_agents.is_amazon_webview(agent))

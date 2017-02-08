@@ -187,8 +187,7 @@ urlpatterns = [
    url(r'^meal/item/', include(patterns_meal_item, namespace="meal_item")),
    url(r'^ingredient/', include(patterns_ingredient, namespace="ingredient")),
    url(r'^unit/', include(patterns_weight_unit, namespace="weight_unit")),
-   url(r'^unit-to-ingredient/',
-       include(patterns_unit_ingredient, namespace="unit_ingredient")),
+   url(r'^unit-to-ingredient/', include(patterns_unit_ingredient, namespace="unit_ingredient")),
    url(r'^calculator/bmi/', include(patterns_bmi, namespace="bmi")),
    url(r'^calculator/calories/', include(patterns_calories, namespace="calories")),
 ]

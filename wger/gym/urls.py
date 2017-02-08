@@ -189,7 +189,6 @@ urlpatterns = [
     url(r'^document/', include(patterns_documents, namespace="document")),
     url(r'^contract/', include(patterns_contracts, namespace="contract")),
     url(r'^contract-type/', include(patterns_contract_types, namespace="contract_type")),
-    url(r'^contract-option/',
-        include(patterns_contract_options, namespace="contract-option")),
+    url(r'^contract-option/', include(patterns_contract_options, namespace="contract-option")),
     url(r'^export/', include(patterns_export, namespace="export")),
 ]

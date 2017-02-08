@@ -36,16 +36,13 @@ class IcalToolsTestCase(WorkoutManagerTestCase):
         start_date = datetime.date(2013, 12, 5)
 
         # Find next monday
-        self.assertEqual(next_weekday(start_date, 0),
-                         datetime.date(2013, 12, 9))
+        self.assertEqual(next_weekday(start_date, 0), datetime.date(2013, 12, 9))
 
         # Find next wednesday
-        self.assertEqual(next_weekday(start_date, 2),
-                         datetime.date(2013, 12, 11))
+        self.assertEqual(next_weekday(start_date, 2), datetime.date(2013, 12, 11))
 
         # Find next saturday
-        self.assertEqual(next_weekday(start_date, 5),
-                         datetime.date(2013, 12, 7))
+        self.assertEqual(next_weekday(start_date, 5), datetime.date(2013, 12, 7))
 
 
 class WorkoutICalExportTestCase(WorkoutManagerTestCase):
@@ -91,8 +88,7 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         Helper function
         '''
 
-        response = self.client.get(
-            reverse('manager:workout:ical', kwargs={'pk': 3}))
+        response = self.client.get(reverse('manager:workout:ical', kwargs={'pk': 3}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
@@ -179,8 +175,7 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
         Helper function
         '''
 
-        response = self.client.get(
-            reverse('manager:schedule:ical', kwargs={'pk': 2}))
+        response = self.client.get(reverse('manager:schedule:ical', kwargs={'pk': 2}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))

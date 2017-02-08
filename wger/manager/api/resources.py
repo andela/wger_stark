@@ -43,8 +43,7 @@ class WorkoutResource(ModelResource):
     Resource for workouts
     '''
 
-    days = fields.ToManyField(
-        'wger.manager.api.resources.DayResource', 'day_set')
+    days = fields.ToManyField('wger.manager.api.resources.DayResource', 'day_set')
 
     def authorized_read_list(self, object_list, bundle):
         '''
@@ -66,8 +65,7 @@ class WorkoutSessionResource(ModelResource):
     Resource for workout sessions
     '''
 
-    workout = fields.ToOneField(
-        'wger.manager.api.resources.WorkoutResource', 'workout')
+    workout = fields.ToOneField('wger.manager.api.resources.WorkoutResource', 'workout')
 
     def authorized_read_list(self, object_list, bundle):
         '''
@@ -77,8 +75,7 @@ class WorkoutSessionResource(ModelResource):
 
     class Meta:
         queryset = WorkoutSession.objects.all()
-        authentication = MultiAuthentication(
-            SessionAuthentication(), ApiKeyAuthentication())
+        authentication = MultiAuthentication(SessionAuthentication(), ApiKeyAuthentication())
         authorization = UserObjectsOnlyAuthorization()
         filtering = {'id': ALL,
                      "date": ALL,
@@ -92,8 +89,7 @@ class ScheduleStepResource(ModelResource):
     '''
 
     workout = fields.ToOneField(WorkoutResource, 'workout')
-    schedule = fields.ToOneField(
-        'wger.manager.api.resources.ScheduleResource', 'schedule')
+    schedule = fields.ToOneField('wger.manager.api.resources.ScheduleResource', 'schedule')
 
     def authorized_read_list(self, object_list, bundle):
         '''

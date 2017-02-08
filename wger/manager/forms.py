@@ -65,7 +65,6 @@ class DemoUserForm(Form):
 
 
 class WorkoutForm(ModelForm):
-
     class Meta:
         model = Workout
         exclude = ('user',)
@@ -73,13 +72,11 @@ class WorkoutForm(ModelForm):
 
 class WorkoutCopyForm(Form):
     comment = CharField(max_length=100,
-                        help_text=_(
-                            'The goal or description of the new workout.'),
+                        help_text=_('The goal or description of the new workout.'),
                         required=False)
 
 
 class DayForm(ModelForm):
-
     class Meta:
         model = Day
         exclude = ('training',)
@@ -87,7 +84,6 @@ class DayForm(ModelForm):
 
 
 class SetForm(ModelForm):
-
     class Meta:
         model = Set
         exclude = ('order', 'exerciseday')
@@ -128,7 +124,6 @@ class SetFormMobile(ModelForm):
 
 
 class SettingForm(ModelForm):
-
     class Meta:
         model = Setting
         exclude = ('set', 'exercise', 'order', 'comment')

@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import six
 import csv
 import datetime
 import logging
@@ -84,7 +85,6 @@ def users(request, gym_pk):
     today = datetime.date.today()
     filename = 'User-data-gym-{gym}-{t.year}-{t.month:02d}-{t.day:02d}.csv'.format(t=today,
                                                                                    gym=gym.id)
-    response[
-        'Content-Disposition'] = 'attachment; filename={0}'.format(filename)
+    response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
     response['Content-Length'] = len(response.content)
     return response

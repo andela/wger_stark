@@ -57,7 +57,6 @@ class IngredientResource(ModelResource):
 
 
 class WeightUnitResource(ModelResource):
-
     class Meta:
         queryset = WeightUnit.objects.all()
         filtering = {'id': ALL,
@@ -83,8 +82,7 @@ class NutritionPlanResource(ModelResource):
     Resource for nutritional plans
     '''
 
-    meals = fields.ToManyField(
-        'wger.nutrition.api.resources.MealResource', 'meal_set')
+    meals = fields.ToManyField('wger.nutrition.api.resources.MealResource', 'meal_set')
 
     def authorized_read_list(self, object_list, bundle):
         '''
@@ -115,8 +113,7 @@ class MealResource(ModelResource):
     '''
 
     plan = fields.ToOneField(NutritionPlanResource, 'plan')
-    meal_items = fields.ToManyField(
-        'wger.nutrition.api.resources.MealItemResource', 'mealitem_set')
+    meal_items = fields.ToManyField('wger.nutrition.api.resources.MealItemResource', 'mealitem_set')
 
     def authorized_read_list(self, object_list, bundle):
         '''
@@ -148,8 +145,7 @@ class MealItemResource(ModelResource):
 
     meal = fields.ToOneField(MealResource, 'meal')
     ingredient = fields.ToOneField(IngredientResource, 'ingredient')
-    weight_unit = fields.ToOneField(
-        WeightUnitResource, 'weight_unit', null=True)
+    weight_unit = fields.ToOneField(WeightUnitResource, 'weight_unit', null=True)
 
     def authorized_read_list(self, object_list, bundle):
         '''

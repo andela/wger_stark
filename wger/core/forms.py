@@ -40,7 +40,6 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserPreferencesForm(forms.ModelForm):
-
     class Meta:
         model = UserProfile
         fields = ('show_comments',
@@ -58,8 +57,7 @@ class UserPreferencesForm(forms.ModelForm):
 
 class UserEmailForm(forms.ModelForm):
     email = EmailField(label=_("Email"),
-                       help_text=_(
-                           "Used for password resets and, optionally, email reminders."),
+                       help_text=_("Used for password resets and, optionally, email reminders."),
                        required=False)
 
     class Meta:
@@ -147,6 +145,7 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
     such a spam danger and simplifies the registration process on a mobile
     device.
     '''
+    pass
 
 
 class FeedbackRegisteredForm(forms.Form):
@@ -156,8 +155,7 @@ class FeedbackRegisteredForm(forms.Form):
     contact = forms.CharField(max_length=50,
                               min_length=10,
                               label=_('Contact'),
-                              help_text=_(
-                                  'Some way of answering you (email, etc.)'),
+                              help_text=_('Some way of answering you (email, etc.)'),
                               required=False)
 
     comment = forms.CharField(max_length=500,

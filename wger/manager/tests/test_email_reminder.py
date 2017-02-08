@@ -80,9 +80,7 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         '''
 
         profile = UserProfile.objects.get(user=2)
-        profile.last_workout_notification = datetime.date.today() - \
-        datetime.timedelta(
-                                                                    days=3)
+        profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=3)
         profile.save()
 
         Schedule.objects.all().delete()
@@ -100,9 +98,7 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         '''
 
         profile = UserProfile.objects.get(user=2)
-        profile.last_workout_notification = datetime.date.today() - \
-        datetime.timedelta(
-                                                                    days=10)
+        profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=10)
         profile.save()
 
         Schedule.objects.all().delete()
