@@ -29,8 +29,7 @@ class CopyPlanTestCase(WorkoutManagerTestCase):
         '''
 
         # Open the copy nutritional plan form
-        response = self.client.get(
-            reverse('nutrition:plan:copy', kwargs={'pk': 4}))
+        response = self.client.get(reverse('nutrition:plan:copy', kwargs={'pk': 4}))
         if fail:
             self.assertIn(response.status_code, (302, 403, 404))
         else:
@@ -49,8 +48,7 @@ class CopyPlanTestCase(WorkoutManagerTestCase):
             self.assertEqual(count_after, 7)
 
         # Test accessing the copied workout
-        response = self.client.get(
-            reverse('nutrition:plan:view', kwargs={'id': 4}))
+        response = self.client.get(reverse('nutrition:plan:view', kwargs={'id': 4}))
 
         if fail:
             self.assertIn(response.status_code, (302, 403, 404))

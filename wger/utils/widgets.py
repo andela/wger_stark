@@ -103,8 +103,7 @@ class ExerciseAjaxSelect(SelectMultiple):
             value = []
 
         output = [u'<div>']
-        output.append(
-            u'<input type="text" id="exercise-search" class="form-control">')
+        output.append(u'<input type="text" id="exercise-search" class="form-control">')
         output.append(u'</div>')
 
         output.append('<div id="exercise-search-log">')
@@ -120,8 +119,7 @@ class ExerciseAjaxSelect(SelectMultiple):
         selected_choices = set(force_text(v) for v in selected_choices)
         output = []
         for option_value, option_label in chain(self.choices, choices):
-            output.append(self.render_option(
-                selected_choices, option_value, option_label))
+            output.append(self.render_option(selected_choices, option_value, option_label))
         return u'\n'.join(output)
 
     def render_option(self, selected_choices, option_value, option_label):
@@ -157,8 +155,7 @@ class CheckboxChoiceInputTranslated(CheckboxChoiceInput):
     def __init__(self, name, value, attrs, choice, index):
         choice = (choice[0], _(choice[1]))
 
-        super(CheckboxChoiceInputTranslated, self).__init__(
-            name, value, attrs, choice, index)
+        super(CheckboxChoiceInputTranslated, self).__init__(name, value, attrs, choice, index)
 
 
 class CheckboxChoiceInputTranslatedOriginal(CheckboxChoiceInput):
@@ -213,6 +210,7 @@ class TranslatedSelectMultiple(BootstrapSelectMultiple):
     '''
     A SelectMultiple widget that translates the options
     '''
+    pass
 
 
 class TranslatedOriginalSelectMultiple(BootstrapSelectMultipleTranslatedOriginal):
@@ -221,6 +219,7 @@ class TranslatedOriginalSelectMultiple(BootstrapSelectMultipleTranslatedOriginal
     string as well. This is currently only used in the muscle list, where the
     translated muscles as well as the latin names are shown.
     '''
+    pass
 
 
 class TranslatedSelect(Select):

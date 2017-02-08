@@ -59,8 +59,7 @@ class StepCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
         '''
 
         class StepForm(ModelForm):
-            workout = ModelChoiceField(
-                queryset=Workout.objects.filter(user=self.request.user))
+            workout = ModelChoiceField(queryset=Workout.objects.filter(user=self.request.user))
 
             class Meta:
                 model = ScheduleStep
@@ -106,8 +105,7 @@ class StepEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
         '''
 
         class StepForm(ModelForm):
-            workout = ModelChoiceField(
-                queryset=Workout.objects.filter(user=self.request.user))
+            workout = ModelChoiceField(queryset=Workout.objects.filter(user=self.request.user))
 
             class Meta:
                 model = ScheduleStep
@@ -138,6 +136,5 @@ class StepDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
         '''
         context = super(StepDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
-        context['form_action'] = reverse('core:license:delete', kwargs={
-                                         'pk': self.kwargs['pk']})
+        context['form_action'] = reverse('core:license:delete', kwargs={'pk': self.kwargs['pk']})
         return context

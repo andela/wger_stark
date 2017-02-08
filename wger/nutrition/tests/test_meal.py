@@ -96,8 +96,7 @@ class PlanDetailTestCase(WorkoutManagerTestCase):
         Helper function to test the plan detail view
         '''
 
-        response = self.client.get(
-            reverse('nutrition:plan:view', kwargs={'id': 1}))
+        response = self.client.get(reverse('nutrition:plan:view', kwargs={'id': 1}))
 
         # Page exists
         if fail:

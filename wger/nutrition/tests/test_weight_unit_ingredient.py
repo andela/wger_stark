@@ -34,8 +34,7 @@ class WeightUnitIngredientRepresentationTestCase(WorkoutManagerTestCase):
         '''
         Test that the representation of an object is correct
         '''
-        self.assertEqual("{0}".format(
-            IngredientWeightUnit.objects.get(pk=1)), 'Spoon (109g)')
+        self.assertEqual("{0}".format(IngredientWeightUnit.objects.get(pk=1)), 'Spoon (109g)')
 
 
 class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
@@ -87,8 +86,7 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('nutrition:unit_ingredient:add',
                                            kwargs={'ingredient_pk': 1}))
 
-        choices = [text for value, text in response.context[
-            'form']['unit'].field.choices]
+        choices = [text for value, text in response.context['form']['unit'].field.choices]
         for unit in WeightUnit.objects.all():
             if unit.language_id == 1:
                 self.assertNotIn(unit.name, choices)
@@ -103,8 +101,7 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('nutrition:unit_ingredient:edit',
                                            kwargs={'pk': 1}))
 
-        choices = [text for value, text in response.context[
-            'form']['unit'].field.choices]
+        choices = [text for value, text in response.context['form']['unit'].field.choices]
         for unit in WeightUnit.objects.all():
             if unit.language_id == 1:
                 self.assertNotIn(unit.name, choices)
