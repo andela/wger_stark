@@ -38,6 +38,7 @@ from django.views.generic import (
 )
 from django.conf import settings
 from rest_framework.authtoken.models import Token
+from django.views.decorators.csrf import csrf_exempt
 
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import WgerFormMixin, WgerMultiplePermissionRequiredMixin
@@ -261,6 +262,55 @@ def registration(request):
     template_data['extend_template'] = 'base.html'
 
     return render(request, 'form.html', template_data)
+
+@csrf_exempt
+def api_registration(request):
+    '''
+    A form to allow for registration of new users through restfull api
+    '''
+    template_data = {}
+
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+        if username:
+
+            user = Django_User.objects.create_user(username,
+                                                   email,
+                                                   password)
+            user.save()
+
+            # Pre-set some values of the user's profile
+            language = Language.objects.get(short_name=translation.get_language())
+            user.userprofile.notification_language = language
+
+            # Set default gym, if needed
+            gym_config = GymConfig.objects.get(pk=1)
+            if gym_config.default_gym:
+                user.userprofile.gym = gym_config.default_gym
+
+                # Create gym user configuration object
+                config = GymUserConfig()
+                config.gym = gym_config.default_gym
+                config.user = user
+                config.save()
+
+            user.userprofile.save()
+
+            user = authenticate(username=username, password=password)
+            django_login(request, user)
+            messages.success(request, _('You were successfully registered'))
+            return HttpResponseRedirect(reverse('core:dashboard'))
+    else:
+        template_data['title'] = _('Api Register')
+
+    template_data['title'] = _('Api Register')
+
+    template_data['extend_template'] = 'base.html'
+
+    return (render(request, 'api_register.html', template_data))
 
 
 @login_required
