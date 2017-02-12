@@ -17,7 +17,7 @@
 import logging
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden,HttpResponse
 from django.template.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, ugettext_lazy
@@ -277,6 +277,18 @@ def api_registration(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         email = request.POST.get('email')
+        if not email or "@" not in email:
+            request.status_code=400
+            request.message={"error": "email is incorrect"}
+            return HttpResponse((request.status_code,request.message),
+                                content_type="text/plain")
+
+        if not password:
+            request.status_code=400
+            request.message={"error": "password cannot be empty"}
+            return HttpResponse((request.status_code,request.message),
+                                content_type="text/plain")
+
         if username:
 
             user = Django_User.objects.create_user(username,
