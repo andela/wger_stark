@@ -264,13 +264,14 @@ def registration(request):
 
     return render(request, 'form.html', template_data)
 
+
 @csrf_exempt
 def api_registration(request):
     '''
     A form to allow for registration of new users through restfull api
     '''
     template_data = {}
-    FormClass = RegistrationFormNoCaptcha
+    FormClass = Api_RegistrationForm
 
     if request.method == 'POST':
         username = request.POST.get('username')
