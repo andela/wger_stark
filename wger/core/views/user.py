@@ -49,6 +49,7 @@ from wger.core.forms import (
     PasswordConfirmationForm,
     RegistrationForm,
     RegistrationFormNoCaptcha,
+    Api_RegistrationForm,
     UserLoginForm)
 from wger.core.models import Language
 from wger.manager.models import (
@@ -269,7 +270,7 @@ def api_registration(request):
     A form to allow for registration of new users through restfull api
     '''
     template_data = {}
-
+    FormClass = RegistrationFormNoCaptcha
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -304,10 +305,10 @@ def api_registration(request):
             messages.success(request, _('You were successfully registered'))
             return HttpResponseRedirect(reverse('core:dashboard'))
     else:
-        template_data['title'] = _('Api Register')
+        form = FormClass()
 
     template_data['title'] = _('Api Register')
-
+    template_data['form_action'] = reverse('core:user:api_registration')
     template_data['extend_template'] = 'base.html'
 
     return (render(request, 'api_register.html', template_data))
