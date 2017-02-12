@@ -148,6 +148,17 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
     pass
 
 
+class Api_RegistrationForm(UserCreationForm, UserEmailForm):
+    '''
+    Registration form without captcha field
+
+    This is used when registering through an app, in that case there is not
+    such a spam danger and simplifies the registration process on a mobile
+    device.
+    '''
+    pass
+
+
 class FeedbackRegisteredForm(forms.Form):
     '''
     Feedback form used for logged in users
