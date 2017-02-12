@@ -17,7 +17,7 @@
 import logging
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden,HttpResponse
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.template.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, ugettext_lazy
@@ -278,15 +278,14 @@ def api_registration(request):
         password = request.POST.get('password')
         email = request.POST.get('email')
         if not email or "@" not in email:
-            request.status_code=400
-            request.message={"error": "email is incorrect"}
-            return HttpResponse((request.status_code,request.message),
+            request.status_code = 400
+            request.message = {"error": "email is incorrect"}
+            return HttpResponse((request.status_code, request.message),
                                 content_type="text/plain")
-
         if not password:
-            request.status_code=400
-            request.message={"error": "password cannot be empty"}
-            return HttpResponse((request.status_code,request.message),
+            request.status_code = 400
+            request.message = {"error": "password cannot be empty"}
+            return HttpResponse((request.status_code, request.message),
                                 content_type="text/plain")
 
         if username:
@@ -297,7 +296,8 @@ def api_registration(request):
             user.save()
 
             # Pre-set some values of the user's profile
-            language = Language.objects.get(short_name=translation.get_language())
+            language = Language.objects.get(
+                short_name=translation.get_language())
             user.userprofile.notification_language = language
 
             # Set default gym, if needed
