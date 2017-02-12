@@ -33,8 +33,7 @@ class Api_RegistrationTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
         # Fill in the registration form
-        registration_data = {'username': 'myusername',
-                             'password1': 'secret',
+        registration_data = {'username': 'myusername', 'password1': 'secret',
                              'email': 'not an email'}
         count_before = User.objects.count()
 
@@ -80,4 +79,4 @@ class Api_RegistrationTestCase(WorkoutManagerTestCase):
                                     registration_data)
         count_after = User.objects.count()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(count_before+1, count_after)
+        self.assertEqual(count_before + 1, count_after)
