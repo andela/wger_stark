@@ -278,15 +278,11 @@ def api_registration(request):
         password = request.POST.get('password')
         email = request.POST.get('email')
         if not email or "@" not in email:
-            request.status_code = 400
-            request.message = {"error": "email is incorrect"}
-            return HttpResponse((request.status_code, request.message),
-                                content_type="text/plain")
+            request.message = {"error : email is incorrect"}
+            return HttpResponse(request.message, status=400)
         if not password:
-            request.status_code = 400
-            request.message = {"error": "password cannot be empty"}
-            return HttpResponse((request.status_code, request.message),
-                                content_type="text/plain")
+            request.message = {"error: password cannot be empty"}
+            return HttpResponse(request.message, status=400)
 
         if username:
 
