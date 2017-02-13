@@ -37,12 +37,11 @@ class Api_RegistrationTestCase(WorkoutManagerTestCase):
                              'email': 'not an email'}
         count_before = User.objects.count()
 
-        # Correct email
-        registration_data['email'] = 'my.email@example.com'
+        # InCorrect email
         response = self.client.post(reverse('core:user:api_registration'),
                                     registration_data)
         count_after = User.objects.count()
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(count_before, count_after)
         self.user_logout()
 
@@ -50,7 +49,7 @@ class Api_RegistrationTestCase(WorkoutManagerTestCase):
         response = self.client.post(reverse('core:user:api_registration'),
                                     registration_data)
         count_after = User.objects.count()
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(count_before, count_after)
 
         # Email already exists
@@ -58,7 +57,7 @@ class Api_RegistrationTestCase(WorkoutManagerTestCase):
         response = self.client.post(reverse('core:user:api_registration'),
                                     registration_data)
         count_after = User.objects.count()
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(count_before, count_after)
 
     def test_api_registration_added(self):
