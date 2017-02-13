@@ -65,3 +65,8 @@ script:
 
   # Code coverage
   - coverage report
+  #add slack notifications
+  notifications:
+  slack: andela:qHbiTx54Uq4l1FVDjM9ZCYvP
+  
+  travis encrypt "andela:qHbiTx54Uq4l1FVDjM9ZCYvP" --add notifications.slack

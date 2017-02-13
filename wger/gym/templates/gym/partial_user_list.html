@@ -20,10 +20,12 @@ $(document).ready( function () {
     {% for key in user_table.keys %}
         <th>{{ key }}</th>
     {% endfor %}
+    <th>Status</th>
 </tr>
 </thead>
 <tbody>
 {% for current_user in user_table.users %}
+<br>
 <tr>
     <td>
         {{current_user.obj.pk}}
@@ -48,6 +50,13 @@ $(document).ready( function () {
         {% endif %}
     </td>
     {% endif %}
+    <td>
+      {% if current_user.obj.is_active %}
+        <a href="{% url 'core:user:deactivate' current_user.obj.pk %}" title="Deactivate">{% trans "Active"%}</a>
+      {% else %}
+        <a href="{% url 'core:user:activate' current_user.obj.pk %}" title="Activate">{% trans "Inactive"%}</a>
+      {% endif %}
+    </td>
 </tr>
 {% endfor %}
 </tbody>
