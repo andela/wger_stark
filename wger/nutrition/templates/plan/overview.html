@@ -1,11 +1,14 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n cache%}
 {% load staticfiles %}
 
 {% block title %}{% trans "Your nutrition plans" %}{% endblock %}
 
 
 {% block content %}
+
+{% cache cache_timeout nutrition-plan-overview %}
+
 <div class="list-group">
     {% for plan in plans %}
         <a href="{{ plan.get_absolute_url }}" class="list-group-item">
@@ -14,7 +17,7 @@
             <h4 class="list-group-item-heading">{{plan}}</h4>
             <p class="list-group-item-text">
                 {{ plan.creation_date }} –
-                {{ plan.get_nutritional_values.total.energy|floatformat }} {% trans "kcal" %}
+                {{ plan.cached_total|floatformat }} {% trans "kcal" %}
             </p>
         </a>
     {% empty %}
@@ -24,6 +27,8 @@
         </a>
     {% endfor %}
 </div>
+{% endcache %}
+
 {% endblock %}
 
 
@@ -35,4 +40,5 @@
     <a href="{% url 'nutrition:plan:add' %}" class="btn btn-success btn-sm">
         {% trans "Add nutrition plan" %}
     </a>
+
 {% endblock %}

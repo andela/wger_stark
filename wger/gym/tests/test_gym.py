@@ -70,6 +70,16 @@ class GymUserOverviewTest(WorkoutManagerAccessTestCase):
                  'trainer4',
                  'manager3')
 
+    def test_shows_user_deactivated(self):
+        self.user_login()
+        response = self.client.get(self.url)
+        self.assertContains(response, "Inactive")
+
+    def test_shows_user_activated(self):
+        self.user_login()
+        response = self.client.get(self.url)
+        self.assertContains(response, "Active")
+
 
 class AddGymTestCase(WorkoutManagerAddTestCase):
     '''
