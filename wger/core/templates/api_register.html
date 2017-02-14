@@ -1,0 +1,60 @@
+{% extends extend_template %}
+{% load i18n staticfiles wger_extras %}
+
+{% block header %}
+
+{{ form.media }}
+
+{% if custom_js %}
+<script type="text/javascript">
+    {{custom_js|safe}}
+</script>
+{% endif %}
+{% endblock %}
+
+
+{% block title %}{{title}}{% endblock %}
+
+
+{% block content %}
+<h1></h1>
+<div>
+Use this api to intergrate User registration to Wger.
+<ul>
+  <p></p>
+  <li>
+    <p><b><i>
+    curl -X POST -H  "Content-Type: multipart/form-data;
+    boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -F
+    "username=Newuser" -F "email=UserEmail.com" -F "password=Userpassword"
+    http://127.0.0.1:8000/en/user/api_registration
+    </i></b></p>
+  </li>
+  <hr>
+  <li><h5>Sample python api</h5>
+    <b>
+    session_requests = requests.session()<br>
+    regis_url = "http://127.0.0.1:8000/en/user/api_registration"<br>
+    result = session_requests.get(regis_url)<br>
+    registration_data = {'username': 'NewUsername',
+                         'password': 'userpassword',
+                         'email': 'user@user.com'}<br>
+    result = session_requests.post(regis_url, data = registration_data)<br>
+  </b>
+</li>
+<hr>
+<li>
+  <p>Here is a postman sample </p>
+  <p>
+  <img class="img-square img-responsive" src="{% static 'images/api_register_with_postman.png' %}" alt="">
+  </p>
+</li>
+</ul>
+</div>
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}{% if sidebar %}{% include sidebar %}{% endif %}{% endblock %}

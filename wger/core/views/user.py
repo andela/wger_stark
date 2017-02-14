@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-
+import json
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.template.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, ugettext_lazy
@@ -38,6 +38,7 @@ from django.views.generic import (
 )
 from django.conf import settings
 from rest_framework.authtoken.models import Token
+from django.views.decorators.csrf import csrf_exempt
 
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import WgerFormMixin, WgerMultiplePermissionRequiredMixin
@@ -48,6 +49,7 @@ from wger.core.forms import (
     PasswordConfirmationForm,
     RegistrationForm,
     RegistrationFormNoCaptcha,
+    Api_RegistrationForm,
     UserLoginForm)
 from wger.core.models import Language
 from wger.manager.models import (
@@ -261,6 +263,65 @@ def registration(request):
     template_data['extend_template'] = 'base.html'
 
     return render(request, 'form.html', template_data)
+
+
+@csrf_exempt
+def api_registration(request):
+    '''
+    A form to allow for registration of new users through restfull api
+    '''
+    template_data = {}
+    FormClass = Api_RegistrationForm
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+        if not email or "@" not in email:
+            request.message = {"error : email is incorrect"}
+            return HttpResponse(request.message, status=400)
+        if not password:
+            request.message = {"error: password cannot be empty"}
+            return HttpResponse(request.message, status=400)
+        response_data = {}
+        response_data = {"username": username, "email": email}
+        if username:
+
+            user = Django_User.objects.create_user(username,
+                                                   email,
+                                                   password)
+            user.save()
+
+            # Pre-set some values of the user's profile
+            language = Language.objects.get(
+                short_name=translation.get_language())
+            user.userprofile.notification_language = language
+
+            # Set default gym, if needed
+            gym_config = GymConfig.objects.get(pk=1)
+            if gym_config.default_gym:
+                user.userprofile.gym = gym_config.default_gym
+
+                # Create gym user configuration object
+                config = GymUserConfig()
+                config.gym = gym_config.default_gym
+                config.user = user
+                config.save()
+
+            user.userprofile.save()
+
+            response_data = {'success': 'User successfully created',
+                             'User': response_data}
+            return HttpResponse(json.dumps(response_data),
+                                content_type="application/json", status=200)
+    else:
+        form = FormClass()
+
+    template_data['title'] = _('Api Register')
+    template_data['form_action'] = reverse('core:user:api_registration')
+    template_data['extend_template'] = 'base.html'
+
+    return (render(request, 'api_register.html', template_data))
 
 
 @login_required
