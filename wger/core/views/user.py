@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-
+import json
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.template.context_processors import csrf
@@ -283,7 +283,8 @@ def api_registration(request):
         if not password:
             request.message = {"error: password cannot be empty"}
             return HttpResponse(request.message, status=400)
-
+        response_data = {}
+        response_data = {"username": username, "email": email}
         if username:
 
             user = Django_User.objects.create_user(username,
@@ -309,10 +310,10 @@ def api_registration(request):
 
             user.userprofile.save()
 
-            user = authenticate(username=username, password=password)
-            django_login(request, user)
-            messages.success(request, _('You were successfully registered'))
-            return HttpResponseRedirect(reverse('core:dashboard'))
+            response_data = {'success': 'User successfully created',
+                             'User': response_data}
+            return HttpResponse(json.dumps(response_data),
+                                content_type="application/json", status=200)
     else:
         form = FormClass()
 
